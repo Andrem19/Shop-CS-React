@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Product } from "../../app/layout/models/product";
+import { Product } from "../../app/models/product";
 import agent from "../../app/api/agent";
 import ProductList from "./ProductList";
 import LoadingComponent from "../../app/layout/LoadingComponent";
