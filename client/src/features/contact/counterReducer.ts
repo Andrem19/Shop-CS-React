@@ -8,7 +8,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
     data: 42,
-    title: 'YARC (yet another  redux counter)'
+    title: 'YARC (yet another redux counter)'
 }
 
 export function increment(amount = 1) {
@@ -17,6 +17,7 @@ export function increment(amount = 1) {
         payload: amount
     }
 }
+
 export function decrement(amount = 1) {
     return {
         type: DECREMENT_COUNTER,
@@ -31,7 +32,7 @@ export default function counterReducer(state = initialState, action: any) {
                 ...state,
                 data: state.data + action.payload
             }
-            case DECREMENT_COUNTER:
+        case DECREMENT_COUNTER:
             return {
                 ...state,
                 data: state.data - action.payload

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components.Web;
+using System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,28 +10,31 @@ namespace API.Controllers
         {
             return NotFound();
         }
-        [HttpGet("bed-request")]
+
+        [HttpGet("bad-request")]
         public ActionResult GetBadRequest()
         {
             return BadRequest(new ProblemDetails{Title = "This is a bad request"});
         }
+
         [HttpGet("unauthorised")]
         public ActionResult GetUnauthorised()
         {
             return Unauthorized();
         }
+
         [HttpGet("validation-error")]
         public ActionResult GetValidationError()
         {
             ModelState.AddModelError("Problem1", "This is the first error");
-            ModelState.AddModelError("Problem2", "This is the first error");
+            ModelState.AddModelError("Problem2", "This is the second error");
             return ValidationProblem();
         }
+
         [HttpGet("server-error")]
         public ActionResult GetServerError()
         {
-            throw new Exception("This is the server error");
+            throw new Exception("This is a server error");
         }
-        
     }
 }

@@ -1,18 +1,17 @@
-import { Button, ButtonGroup, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
-import { decrement, increment } from './counterSlice';
-
-
+import { Button, ButtonGroup, Typography } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { decrement, increment } from "./counterSlice";
 
 export default function ContactPage() {
     const dispatch = useAppDispatch();
-    const {data, title} = useAppSelector(state => state.counter);
+    const { data, title } = useAppSelector(state => state.counter);
+
     return (
         <>
-            <Typography>
+            <Typography variant='h2'>
                 {title}
             </Typography>
-            <Typography>
+            <Typography variant='h5'>
                 The data is: {data}
             </Typography>
             <ButtonGroup>
@@ -21,5 +20,6 @@ export default function ContactPage() {
                 <Button onClick={() => dispatch(increment(5))} variant='contained' color='secondary'>Increment by 5</Button>
             </ButtonGroup>
         </>
+
     )
 }

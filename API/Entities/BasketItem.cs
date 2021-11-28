@@ -10,17 +10,9 @@ namespace API.Entities
 
         // navigation properties
         public int ProductId { get; set; }
-        public Product Product { get; set; }
-        public int BasketId { get; set; }
-        public Basket Basket { get; set; }
+        public Product? Product { get; set; }
 
-        
-        
-        
-        
-        
-        
-        
-        
+        public int BasketId { get; set; }
+        public Basket? Basket { get; set; }
     }
 }

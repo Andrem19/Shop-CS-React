@@ -15,5 +15,5 @@ export default function RadioButtonGroup({options, onChange, selectedValue}: Pro
                 ))}
             </RadioGroup>
         </FormControl>
-        )
+    )
 }
