@@ -103,6 +103,28 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<PaymentService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+}
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseCors(opt => 
+{
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
+});
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
+
 using var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
@@ -116,32 +138,5 @@ catch(Exception ex)
 {
     logger.LogError(ex, "Problem migrating data");
 }
-// Configure the HTTP request pipeline.
-app.UseMiddleware<ExceptionMiddleware>();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// app.UseHttpsRedirection();
-app.UseRouting();
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-app.UseCors(opt => 
-{
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
-});
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapFallbackToController("Index", "Fallback");
-});
-
 
 await app.RunAsync();
