@@ -25,10 +25,10 @@ const navStyles = {
     textDecoration: 'none',
     typography: 'h6',
     '&:hover': {
-        color: 'grey.500'
+        color: '#bdbdbd'
     },
     '&.active': {
-        color: 'text.secondary'
+        color: '#90a4ae'
     }
 }
 
@@ -38,7 +38,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
 
     return (
-        <AppBar position='static'>
+        <AppBar style={{ background: '#2E3B55' }} position='static'>
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box display='flex' alignItems='center'>
                     <Typography variant='h6' component={NavLink} exact to='/'
@@ -58,6 +58,14 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                             {title.toUpperCase()}
                         </ListItem>
                     ))}
+                    {user && user.roles?.includes('Admin') &&
+                    <ListItem
+                            component={NavLink}
+                            to={'/inventory'}
+                            sx={navStyles}
+                        >
+                            INVENTORY
+                        </ListItem>}
                 </List>
                 <Box display='flex' alignItems='center'>
                     <IconButton component={Link} to='/basket' size='large' sx={{ color: 'inherit' }}>
